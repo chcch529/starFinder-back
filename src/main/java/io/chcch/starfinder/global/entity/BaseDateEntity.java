@@ -1,4 +1,4 @@
-package io.chcch.starfinder.domain.global.entity;
+package io.chcch.starfinder.global.entity;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

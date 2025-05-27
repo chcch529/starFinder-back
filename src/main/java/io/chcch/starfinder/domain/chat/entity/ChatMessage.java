@@ -1,6 +1,5 @@
 package io.chcch.starfinder.domain.chat.entity;
 
-import io.chcch.starfinder.domain.global.entity.BaseDateEntity;
 import io.chcch.starfinder.domain.user.entity.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
