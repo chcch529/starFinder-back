@@ -1,5 +1,6 @@
 package io.chcch.starfinder.domain.post.entity;
 
+import io.chcch.starfinder.domain.post.dto.PostRequest;
 import io.chcch.starfinder.global.entity.BaseDateEntity;
 import io.chcch.starfinder.domain.user.entity.User;
 import jakarta.persistence.Entity;
@@ -33,7 +34,9 @@ public class Post extends BaseDateEntity {
 
     private String content;
 
-
+    public void update(PostRequest request) {
+        this.content = request.getContent();
+    }
 
 }
 
