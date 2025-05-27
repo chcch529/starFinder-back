@@ -25,6 +25,13 @@ public class PostService {
         return postRepository.save(post).getId();
     }
 
+    public void deletePost(Long postId) {
+        Post post = postRepository.findById(postId)
+            .orElseThrow(RuntimeException::new);
+
+        postRepository.delete(post);
+    }
+
 
 
 }

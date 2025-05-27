@@ -4,6 +4,8 @@ import io.chcch.starfinder.domain.post.dto.PostCreateRequest;
 import io.chcch.starfinder.domain.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,4 +28,12 @@ public class PostController {
         return ResponseEntity.ok("게시글이 성공적으로 작성되었습니다.");
     }
 
+    @DeleteMapping(value = "/{postId}")
+    public ResponseEntity<?> deletePost(
+        @PathVariable Long postId
+    ) {
+        postService.deletePost(postId);
+
+        return ResponseEntity.ok("게시글이 성공적으로 삭제되었습니다.");
+    }
 }
