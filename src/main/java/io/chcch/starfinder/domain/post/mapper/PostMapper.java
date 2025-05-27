@@ -1,7 +1,6 @@
 package io.chcch.starfinder.domain.post.mapper;
 
 import io.chcch.starfinder.domain.post.dto.PostRequest;
-import io.chcch.starfinder.domain.post.dto.PostUpdateRequest;
 import io.chcch.starfinder.domain.post.entity.Post;
 import io.chcch.starfinder.domain.user.entity.User;
 
