@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class PostCreateRequest {
+public class PostRequest {
 
     private String content;
 

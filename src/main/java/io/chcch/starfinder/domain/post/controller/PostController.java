@@ -1,10 +1,11 @@
 package io.chcch.starfinder.domain.post.controller;
 
-import io.chcch.starfinder.domain.post.dto.PostCreateRequest;
+import io.chcch.starfinder.domain.post.dto.PostRequest;
 import io.chcch.starfinder.domain.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,7 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<?> createPost(
-        @RequestBody PostCreateRequest request
+        @RequestBody PostRequest request
     ) {
         Long userId = 1L;
         postService.createPost(request, userId);
@@ -28,10 +29,21 @@ public class PostController {
         return ResponseEntity.ok("게시글이 성공적으로 작성되었습니다.");
     }
 
+    @PatchMapping(value = "/{postId}")
+    public ResponseEntity<?> updatePost(
+        @RequestBody PostRequest request,
+        @PathVariable Long postId
+    ) {
+        postService.updatePost(request, postId);
+
+        return ResponseEntity.ok("게시글이 성공적으로 삭제되었습니다.");
+    }
+
     @DeleteMapping(value = "/{postId}")
     public ResponseEntity<?> deletePost(
         @PathVariable Long postId
     ) {
+
         postService.deletePost(postId);
 
         return ResponseEntity.ok("게시글이 성공적으로 삭제되었습니다.");

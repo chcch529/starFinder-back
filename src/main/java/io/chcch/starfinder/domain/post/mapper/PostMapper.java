@@ -1,13 +1,14 @@
 package io.chcch.starfinder.domain.post.mapper;
 
-import io.chcch.starfinder.domain.post.dto.PostCreateRequest;
+import io.chcch.starfinder.domain.post.dto.PostRequest;
+import io.chcch.starfinder.domain.post.dto.PostUpdateRequest;
 import io.chcch.starfinder.domain.post.entity.Post;
 import io.chcch.starfinder.domain.user.entity.User;
 
 
 public class PostMapper {
 
-    public static Post toEntity(PostCreateRequest request, User user) {
+    public static Post toEntity(PostRequest request, User user) {
 
         return Post.builder()
             .content(request.getContent())

@@ -1,6 +1,6 @@
 package io.chcch.starfinder.domain.post.service;
 
-import io.chcch.starfinder.domain.post.dto.PostCreateRequest;
+import io.chcch.starfinder.domain.post.dto.PostRequest;
 import io.chcch.starfinder.domain.post.entity.Post;
 import io.chcch.starfinder.domain.post.mapper.PostMapper;
 import io.chcch.starfinder.domain.post.repository.PostRepository;
@@ -16,13 +16,20 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
-    public Long createPost(PostCreateRequest request, Long userId) {
+    public Long createPost(PostRequest request, Long userId) {
         User user = userRepository.findById(userId)
             .orElseThrow(RuntimeException::new);
 
         Post post = PostMapper.toEntity(request, user);
 
         return postRepository.save(post).getId();
+    }
+
+    public void updatePost(PostRequest request, Long postId) {
+        Post post = postRepository.findById(postId)
+            .orElseThrow(RuntimeException::new);
+
+        post.update(request);
     }
 
     public void deletePost(Long postId) {
