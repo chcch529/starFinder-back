@@ -36,7 +36,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    private String profile_img;
+    @Column(name = "profile_img")
+    private String profileImg;
 
     @Column(nullable = false)
     private LocalDate birthDay;
