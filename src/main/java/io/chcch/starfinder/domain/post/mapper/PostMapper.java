@@ -22,7 +22,7 @@ public class PostMapper {
             .content(post.getContent())
             .createdAt(post.getCreatedAt())
             .nickname(user.getNickname())
-            .profileUrl(user.getProfile_img())
+            .profileUrl(user.getProfileImg())
             .build();
     }
 
