@@ -37,14 +37,17 @@ class PostControllerTest {
     @Autowired
     private UserRepository userRepository;
 
+    private User user;
+
     @BeforeEach
     void setUp() {
-        User user = userRepository.save(
+        String uniqueEmail = "test" + System.nanoTime() + "@sample.com";
+        user = userRepository.save(
             User.builder()
                 .name("테스트")
                 .nickname("테스트유저")
                 .provider("test")
-                .email("test@sample.com")
+                .email(uniqueEmail)
                 .password("1234")
                 .birthDay(LocalDate.now())
                 .build()
@@ -54,7 +57,7 @@ class PostControllerTest {
             postRepository.save(
                 Post.builder()
                     .user(user)
-                    .content(i +"번 게시글")
+                    .content(i + "번 게시글")
                     .build()
             );
         }
@@ -64,7 +67,8 @@ class PostControllerTest {
     @DisplayName("커서 없이 요청 보냈을 때 정상 응답 확인")
     void getPosts_shouldReturnFirstSlice() throws Exception {
         mockMvc.perform(get("/api/posts")
-                .param("size", "10"))
+                .param("size", "10")
+                .param("userId", user.getId().toString()))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.content.length()").value(10))
             .andExpect(jsonPath("$.hasNext").value(true));
@@ -74,7 +78,9 @@ class PostControllerTest {
     @DisplayName("두번째 페이지가 잘 불러와지는지 확인")
     void getPosts_withCursor_shouldReturnNextSlice() throws Exception {
         // 첫 페이지를 요청해 커서 추출
-        MvcResult result = mockMvc.perform(get("/api/posts").param("size", "10"))
+        MvcResult result = mockMvc.perform(get("/api/posts")
+                .param("size", "10")
+                .param("userId", user.getId().toString()))
             .andExpect(status().isOk())
             .andReturn();
 
@@ -87,6 +93,7 @@ class PostControllerTest {
         // 다음 페이지 요청
         mockMvc.perform(get("/api/posts")
                 .param("size", "10")
+                .param("userId", user.getId().toString())
                 .param("cursor", lastId.toString()))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.content.length()").value(5))

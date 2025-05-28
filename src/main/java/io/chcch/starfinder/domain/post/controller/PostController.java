@@ -38,9 +38,9 @@ public class PostController {
     @GetMapping
     public ResponseEntity<CursorSliceResponse<PostResponse>> getPosts(
         @RequestParam(required = false) Long cursor,
-        @RequestParam(defaultValue = "10") int size
+        @RequestParam(defaultValue = "10") int size,
+        @RequestParam Long userId
     ) {
-        Long userId = 1L;
 
         Slice<PostResponse> slice = postService.getPosts(cursor, size, userId);
         return ResponseEntity.ok(CursorSliceResponse.of(slice));
