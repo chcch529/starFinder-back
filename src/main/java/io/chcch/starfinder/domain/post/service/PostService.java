@@ -1,12 +1,21 @@
 package io.chcch.starfinder.domain.post.service;
 
 import io.chcch.starfinder.domain.post.dto.PostRequest;
+import io.chcch.starfinder.domain.post.dto.PostResponse;
 import io.chcch.starfinder.domain.post.entity.Post;
 import io.chcch.starfinder.domain.post.mapper.PostMapper;
 import io.chcch.starfinder.domain.post.repository.PostRepository;
 import io.chcch.starfinder.domain.user.entity.User;
 import io.chcch.starfinder.domain.user.repository.UserRepository;
+import io.chcch.starfinder.global.util.SliceUtil;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +32,21 @@ public class PostService {
         Post post = PostMapper.toEntity(request, user);
 
         return postRepository.save(post).getId();
+    }
+
+    public Slice<PostResponse> getPosts(Long cursor, int size, Long userId) {
+        User user = userRepository.findById(userId)
+            .orElseThrow(RuntimeException::new);
+
+        Sort sort = Sort.by(Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(0, size + 1, sort);
+        List<Post> posts = postRepository.findNextPage(cursor, pageable);
+
+        List<PostResponse> responses = posts.stream()
+            .map(post -> PostMapper.from(post, user))
+            .collect(Collectors.toList());
+
+        return SliceUtil.toSlice(responses, PageRequest.of(0, size, sort));
     }
 
     public void updatePost(PostRequest request, Long postId) {
