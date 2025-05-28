@@ -12,7 +12,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Query("SELECT p FROM Post p " +
     "WHERE (:cursor IS NULL OR p.id < :cursor) " +
-    "ORDER BY p.id DESC ")
+    "ORDER BY p.id DESC " +
+    "LIMIT 10")
     List<Post> findNextPage(@Param("cursor") Long cursor, Pageable pageable);
 
 }
