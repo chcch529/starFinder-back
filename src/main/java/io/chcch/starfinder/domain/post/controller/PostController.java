@@ -1,10 +1,9 @@
 package io.chcch.starfinder.domain.post.controller;
 
 import io.chcch.starfinder.domain.post.dto.PostRequest;
-import io.chcch.starfinder.domain.post.dto.PostResponse;
+import io.chcch.starfinder.domain.post.dto.PostListResponse;
 import io.chcch.starfinder.domain.post.service.PostService;
 import io.chcch.starfinder.global.dto.CursorSliceResponse;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
 import org.springframework.http.ResponseEntity;
@@ -36,13 +35,13 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<CursorSliceResponse<PostResponse>> getPosts(
+    public ResponseEntity<CursorSliceResponse<PostListResponse>> getPosts(
         @RequestParam(required = false) Long cursor,
         @RequestParam(defaultValue = "10") int size,
         @RequestParam Long userId
     ) {
 
-        Slice<PostResponse> slice = postService.getPosts(cursor, size, userId);
+        Slice<PostListResponse> slice = postService.getPosts(cursor, size, userId);
         return ResponseEntity.ok(CursorSliceResponse.of(slice));
     }
 

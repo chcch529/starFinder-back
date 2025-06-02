@@ -22,7 +22,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Like {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
