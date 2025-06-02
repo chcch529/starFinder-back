@@ -1,9 +1,8 @@
 package io.chcch.starfinder.domain.comment.repository;
 
-import io.chcch.starfinder.domain.comment.entity.Comment;
-import io.chcch.starfinder.domain.like.entity.Like;
+import io.chcch.starfinder.domain.comment.entity.PostComment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CommentRepository extends JpaRepository<Comment, Long> {
+public interface CommentRepository extends JpaRepository<PostComment, Long> {
 
 }

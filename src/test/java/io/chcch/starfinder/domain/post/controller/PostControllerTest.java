@@ -70,8 +70,9 @@ class PostControllerTest {
                 .param("size", "10")
                 .param("userId", user.getId().toString()))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.content.length()").value(10))
-            .andExpect(jsonPath("$.hasNext").value(true));
+            .andExpect(jsonPath("$.success").value(true))
+            .andExpect(jsonPath("$.data.content.length()").value(10))
+            .andExpect(jsonPath("$.data.hasNext").value(true));
     }
 
     @Test
@@ -88,7 +89,7 @@ class PostControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(json);
 
-        Long lastId = root.get("content").get(9).get("id").asLong();
+        Long lastId = root.get("data").get("content").get(9).get("id").asLong();
 
         // 다음 페이지 요청
         mockMvc.perform(get("/api/posts")
@@ -96,8 +97,9 @@ class PostControllerTest {
                 .param("userId", user.getId().toString())
                 .param("cursor", lastId.toString()))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.content.length()").value(5))
-            .andExpect(jsonPath("$.hasNext").value(false));
+            .andExpect(jsonPath("$.success").value(true))
+            .andExpect(jsonPath("$.data.content.length()").value(5))
+            .andExpect(jsonPath("$.data.hasNext").value(false));
     }
 
 }
