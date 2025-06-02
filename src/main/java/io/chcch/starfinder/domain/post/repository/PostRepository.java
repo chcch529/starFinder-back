@@ -18,8 +18,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             u.nickname,
             u.profileImg,
             p.createdAt,
-            (SELECT COUNT(l) FROM Like l WHERE l.post = p),
-            (SELECT COUNT(c) FROM Comment c WHERE c.post = p),
+            (SELECT COUNT(l) + 0L FROM PostLike l WHERE l.post = p),
+            (SELECT COUNT(c) + 0L FROM PostComment c WHERE c.post = p),
             u.id
         )
         FROM Post p

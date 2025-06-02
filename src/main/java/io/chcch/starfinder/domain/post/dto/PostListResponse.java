@@ -6,10 +6,10 @@ public record PostListResponse(
     Long id,
     String content,
     String nickname,
-    String profileUrl,
+    String profileImg,
     LocalDateTime createdAt,
-    int likeCnt,
-    int commentCnt,
+    Long likeCnt,
+    Long commentCnt,
     Long userId
 
 ) {
