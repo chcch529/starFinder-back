@@ -13,6 +13,8 @@ public class PostResponse {
     private String nickname;
     private String profileUrl;
     private LocalDateTime createdAt;
-
+    private int likeCnt;
+    private int commentCnt;
+    private Long userId;
 
 }
