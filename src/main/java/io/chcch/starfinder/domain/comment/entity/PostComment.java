@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "post_comments")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Comment extends BaseDateEntity {
+public class PostComment extends BaseDateEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,6 +46,6 @@ public class Comment extends BaseDateEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_comment_id")
-    private Comment parentComment;
+    private PostComment parentComment;
 }
 

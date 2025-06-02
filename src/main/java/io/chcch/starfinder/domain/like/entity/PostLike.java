@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "post_likes")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Like {
+public class PostLike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
