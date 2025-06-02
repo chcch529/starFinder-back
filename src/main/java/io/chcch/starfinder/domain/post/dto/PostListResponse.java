@@ -2,7 +2,7 @@ package io.chcch.starfinder.domain.post.dto;
 
 import java.time.LocalDateTime;
 
-public record PostListResponse (
+public record PostListResponse(
     Long id,
     String content,
     String nickname,
@@ -12,4 +12,6 @@ public record PostListResponse (
     int commentCnt,
     Long userId
 
-){}
+) {
+
+}
