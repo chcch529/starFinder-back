@@ -49,7 +49,6 @@ class PostControllerTest {
                 .provider("test")
                 .email(uniqueEmail)
                 .password("1234")
-                .birthDay(LocalDate.now())
                 .build()
         );
 

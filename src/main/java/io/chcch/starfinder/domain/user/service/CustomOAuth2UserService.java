@@ -52,4 +52,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     public User getById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
     }
+
+    public OAuthUserDetails getUserDetailsById(Long id) {
+        OAuthUserDetails userDetails = OAuthUserDetails.from(getById(id));
+
+        return userDetails;
+    }
 }
