@@ -7,6 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface JwtRepository extends JpaRepository<RefreshToken, Long> {
 
-    RefreshToken save(User user, String token);
-    Optional<RefreshToken> findValidRefToken(Long userId);
+    Optional<RefreshToken> findByUserId(Long userId);
 }

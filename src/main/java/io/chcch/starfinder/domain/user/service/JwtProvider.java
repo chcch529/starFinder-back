@@ -34,7 +34,12 @@ public class JwtProvider {
         String accessToken = issueAccessToken(userId, role);
         String refreshToken = issueRefreshToken(userId, role);
 
-        jwtRepository.save(user, refreshToken);
+        RefreshToken tokenEntity = RefreshToken.builder()
+            .user(user)
+            .refreshToken(refreshToken)
+            .build();
+
+        jwtRepository.save(tokenEntity);
 
         return TokenPair.builder()
             .accessToken(accessToken)
@@ -43,7 +48,7 @@ public class JwtProvider {
     }
 
     public Optional<RefreshToken> findRefreshToken(Long userId) {
-        return jwtRepository.findValidRefToken(userId);
+        return jwtRepository.findByUserId(userId);
     }
 
     public String issueAccessToken(Long id, Role role) {
