@@ -14,7 +14,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@Profile("!test")
 public class SecurityConfig {
 
     private final CustomOAuth2UserService oAuth2UserService;
