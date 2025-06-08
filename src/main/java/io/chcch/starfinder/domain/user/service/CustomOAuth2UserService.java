@@ -4,6 +4,7 @@ import io.chcch.starfinder.domain.user.dto.OAuthUserDetails;
 import io.chcch.starfinder.domain.user.entity.Role;
 import io.chcch.starfinder.domain.user.entity.User;
 import io.chcch.starfinder.domain.user.repository.UserRepository;
+import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -34,7 +35,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                         .name(oAuthUserDetails.getName())
                         .nickname(oAuthUserDetails.getName())
                         .email(oAuthUserDetails.getEmail())
-                        .role(Role.valueOf(oAuthUserDetails.getRole()))
+                        .role(oAuthUserDetails.getRole())
                         .build();
 
                     return userRepository.save(saved);
@@ -42,9 +43,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             );
 
         if (getUser.getProvider().equals(provider)) {
-            return oAuthUserDetails;
+            return oAuthUserDetails.setId(getUser.getId()).setRole(getUser.getRole());
         } else {
             throw new RuntimeException();
         }
+    }
+
+    public User getById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
     }
 }
