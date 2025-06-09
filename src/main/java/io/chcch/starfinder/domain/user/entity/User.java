@@ -33,16 +33,14 @@ public class User {
     @Column(nullable = false)
     private String nickname;
 
-    @Column(nullable = false)
     private String password;
 
     @Column(name = "profile_img")
     private String profileImg;
 
     @Column(nullable = false)
-    private LocalDate birthDay;
-
-    @Column(nullable = false)
     private String provider;
+
+    private Role role;
 }
 
