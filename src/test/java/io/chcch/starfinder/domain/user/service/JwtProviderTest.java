@@ -5,15 +5,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import io.chcch.starfinder.domain.user.dto.TokenBody;
 import io.chcch.starfinder.domain.user.entity.Role;
+import io.chcch.starfinder.global.config.TestSecurityConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 
 
 @Slf4j
 @SpringBootTest
+@Import(TestSecurityConfig.class)
 class JwtProviderTest {
 
     @Autowired
