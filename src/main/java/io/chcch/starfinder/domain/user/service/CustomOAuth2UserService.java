@@ -54,8 +54,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     public OAuthUserDetails getUserDetailsById(Long id) {
-        OAuthUserDetails userDetails = OAuthUserDetails.from(getById(id));
 
-        return userDetails;
+        return OAuthUserDetails.from(getById(id));
     }
 }
